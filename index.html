@@ -12,21 +12,40 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="styles/main.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
-		<script src="js/game.js" defer></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="js/events.js" defer></script>
 		<script src="js/player.js" defer></script>
-
-		</script>
-
-
-
-
+		<script src="js/game.js" defer></script>
 
 	</head>
 
+	<body>
+		<form id="game_form">
+			<label for="players">Number of players:</label>
+			<input id="players" type="number" placeholder="Max 15 players">
+			<label for="rounds">Number of rounds:</label>
+			<input id="rounds" type="number" placeholder="Max 15 rounds">
+			<input id="create_game" type="submit" value="Create Game">
+		</form>
+
+		<!-- Temporary -->
+		<div style="height: 50px"></div>
+
+		<table id="game_table">
+			<tr>
+				<th>Name</th>
+				<th>Score</th>
+			</tr>
+		</table>
+
+		<button id="start_game">Start game</button>
+
+		<!-- Temporary -->
+		<div style="height: 50px"></div>
+
+		<div id="test"></div>
 
 
-
-
+	</body>
 
 </html>

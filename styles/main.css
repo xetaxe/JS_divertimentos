@@ -1,4 +1,16 @@
+#start_game {
+	display: none;
+}
 
+#game_table {
+	text-align: center;
+	width: 600px;
+	border-collapse: collapse;
+}
+
+#game_table th, td{
+	border: 2px solid;
+}
 
 
 

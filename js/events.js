@@ -1,6 +1,9 @@
 var game;
 
 $(document).ready(function() {
+
+	//Create & redefine game
+
 	$("#game_form").submit( function(){
 
 		const players = $("#players").val();
@@ -21,10 +24,16 @@ $(document).ready(function() {
 		$("#create_game").val("Redefine Game");
 		$("#start_game").show();
 
-
-		// $("#test").text(JSON.stringify(game, undefined, 2))
-
 		return false;
 	});
+
+
+	//Start game
+	$("#start_game").click( function(){
+
+		game.newRound();
+		game.displayPlayers();
+
+	})
 
 });

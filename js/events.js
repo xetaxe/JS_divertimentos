@@ -1,5 +1,6 @@
 var game;
 
+
 $(document).ready(function() {
 
 	//Modify no. of players and rounds
@@ -96,19 +97,23 @@ $(document).ready(function() {
 		});
 	}
 
+	$("#game_speed").change( function() {
+		game.gameSpeed = parseInt($("#game_speed").val());
+	})
+
 
 	//Create & reset game
-	$("#define_game").click( function(){
+	$("#create_game").click( function(){
 
 		const players = $("#num_players").val();
-		const rounds = $("#num_rounds").val();
+		let rounds = $("#num_rounds").val();
 
 		if (players == null || players == NaN || players < 2 || players > 15) {
 			$("#test").text("Invalid number of players");
 			return false;
 		}
 		if (rounds == "Unlimited") {
-			rounds = 2000;
+			rounds = Infinity;
 		} else if (rounds == NaN || rounds < 1 || rounds > 15) {
 			$("#test").text("Invalid number of rounds");
 			return false;
@@ -117,9 +122,29 @@ $(document).ready(function() {
 		game = new Game(players, rounds);
 		game.createPlayers();
 		game.displayPlayers();
-		// game.createGame();
-		$("#define_game").text("Redefine Game");
+
+		$("#create_game").hide();
+		$("#players_options").hide();
+		$("#rounds_options").hide();
+		$("#speed_options").show();
 		$("#run_game").show();
+		$("#reset_game").show();
+
+		return false;
+	});
+
+
+	//Reset game
+	$("#reset_game").click( function(){
+
+		game.deleteGame();
+
+		$("#create_game").show();
+		$("#players_options").show();
+		$("#rounds_options").show();
+		$("#speed_options").hide();
+		$("#run_game").hide();
+		$("#reset_game").hide();
 
 		return false;
 	});
@@ -128,7 +153,47 @@ $(document).ready(function() {
 	//Start game
 	$("#run_game").click( function(){
 
-		game.runGame();
+		if (game.activeGame == false){
+			game.activeGame = true;
+			$("#run_game").text("Stop Game");
+		} else {
+			game.activeGame = false;
+			$("#run_game").text("Run Game");
+			clearInterval(game.gameInterval);
+		}
+
+
+		function gameLoop(){
+			setTimeout(function() {
+				if(game.currentRound < game.numRounds && game.activeGame == true){
+					console.log("hola");
+					game.currentRound++;
+					game.newRound();
+					game.orderPlayers();
+					game.displayPlayers();
+					game.checkEndGame();
+					gameLoop();
+				}
+			}, GAME_SPEEDS[game.gameSpeed]);
+		};
+
+		gameLoop();
+
+
+
+		// game.gameInterval = setInterval( function(){
+		// 	if(game.currentRound < game.numRounds && game.activeGame == true){
+		// 		console.log("hola");
+		// 		game.currentRound++;
+		// 		game.newRound();
+		// 		game.orderPlayers();
+		// 		game.displayPlayers();
+		// 		game.checkEndGame();
+		// 	} else {
+		// 		clearInterval(game.gameInterval);
+		// 	}
+		// }, GAME_SPEEDS[game.gameSpeed]);
+
 
 	});
 

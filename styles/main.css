@@ -2,6 +2,10 @@
 	display: none;
 }
 
+#reset_game {
+	display: none;
+}
+
 #speed_options {
 	display: none;
 }

@@ -1,15 +1,16 @@
 // Contains the Game information
 
-const AVAILABLE_NAMES = ["Jonathan", "Sophie", "Jessica", "Nathan", "John", "Stuart", "Jimmy", "Robert", "Eric", "Leonora", "Carmen", "Andrew", "Leena", "Jane", "Wolfgang"];
-const GAME_SPEEDS = [500, 1000, 2000];
+const AVAILABLE_NAMES = ["Jonathan", "Sophie", "Jessica", "Nathan", "John", "Stuart", "Jimmy", "Robert", "Eric", "Leonora", "Carmen", "Andrew", "Leena", "Jane", "Wolfgang", "Louise"];
+const GAME_SPEEDS = [1000, 2000, 5000];
 class Game {
 	constructor(numPlayers, numRounds) {
 		this.numPlayers = numPlayers;
 		this.numRounds = numRounds;
 		this.currentRound = 0;
 		this.activeGame = 0;
-		this.gameSpeed = 2;
+		this.gameSpeed = 1;
 		this.activePlayers = [];
+		this.gameInterval;
 	}
 
 
@@ -19,7 +20,7 @@ class Game {
 		}
 
 		let playersNames = [];
-		this.activeGame = 0;
+		this.activeGame = false;
 
 		do{
 			let indexName = AVAILABLE_NAMES[Math.floor(Math.random() * AVAILABLE_NAMES.length)];
@@ -73,19 +74,35 @@ class Game {
 		this.displayPlayers();
 	}
 
+	deleteGame(){
+		this.numPlayers = 0;
+		this.numRounds = 0;
+		this.currentRound = 0;
+		this.activeGame = 0;
+		this.gameSpeed = 1;
+		this.activePlayers = [];
+		this.gameInterval;
+
+		$("#game_table").empty();
+		$("#game_table").append("<tr><th>Name</td><th>Score</th></tr>");
+	}
+
 	checkEndGame(){
 		if (this.currentRound < this.numRounds){
 			return false;
 		}
 
-		this.activeGame = 0;
+		this.activeGame = false;
+	}
+
+	changeSpeed(gameSpeed){
+		this.gameSpeed = GAME_SPEEDS[gameSpeed];
 	}
 
 
 	newRound(){
 		if (this.activePlayers.length == 0) {return false;}
 
-		this.currentRound++;
 
 		const scores = []
 		for(let i=1; i <=this.activePlayers.length; i++){
@@ -104,21 +121,13 @@ class Game {
 			this.activePlayers[i].score += scores[i];
 		}
 
-		this.orderPlayers();
-		this.displayPlayers();
-		this.checkEndGame();
+
 	}
 
 	runGame(){
 		if (this.activePlayers.length == 0) {return false;}
 		
-		this.activeGame = 1;
 
-		do{
-			let myInterval = setInterval( function(){
-				this.newRound();
-			}, GAME_SPEEDS[this.gameSpeed]);
-		}while (this.currentRound < this.numRounds);
 
 
 

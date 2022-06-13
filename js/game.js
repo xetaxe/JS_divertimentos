@@ -1,11 +1,14 @@
 // Contains the Game information
 
 const AVAILABLE_NAMES = ["Jonathan", "Sophie", "Jessica", "Nathan", "John", "Stuart", "Jimmy", "Robert", "Eric", "Leonora", "Carmen", "Andrew", "Leena", "Jane", "Wolfgang"];
-
+const GAME_SPEEDS = [500, 1000, 2000];
 class Game {
 	constructor(numPlayers, numRounds) {
 		this.numPlayers = numPlayers;
 		this.numRounds = numRounds;
+		this.currentRound = 0;
+		this.activeGame = 0;
+		this.gameSpeed = 2;
 		this.activePlayers = [];
 	}
 
@@ -16,6 +19,7 @@ class Game {
 		}
 
 		let playersNames = [];
+		this.activeGame = 0;
 
 		do{
 			let indexName = AVAILABLE_NAMES[Math.floor(Math.random() * AVAILABLE_NAMES.length)];
@@ -62,9 +66,26 @@ class Game {
 		}
 	}
 
+	createGame(){
+		if (this.activePlayers.length == 0) {return false;}
+
+		this.createPlayers();
+		this.displayPlayers();
+	}
+
+	checkEndGame(){
+		if (this.currentRound < this.numRounds){
+			return false;
+		}
+
+		this.activeGame = 0;
+	}
+
 
 	newRound(){
 		if (this.activePlayers.length == 0) {return false;}
+
+		this.currentRound++;
 
 		const scores = []
 		for(let i=1; i <=this.activePlayers.length; i++){
@@ -84,6 +105,23 @@ class Game {
 		}
 
 		this.orderPlayers();
+		this.displayPlayers();
+		this.checkEndGame();
+	}
+
+	runGame(){
+		if (this.activePlayers.length == 0) {return false;}
+		
+		this.activeGame = 1;
+
+		do{
+			let myInterval = setInterval( function(){
+				this.newRound();
+			}, GAME_SPEEDS[this.gameSpeed]);
+		}while (this.currentRound < this.numRounds);
+
+
+
 	}
 
 

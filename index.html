@@ -20,13 +20,30 @@
 	</head>
 
 	<body>
-		<form id="game_form">
-			<label for="players">Number of players:</label>
-			<input id="players" type="number" placeholder="Max 15 players">
-			<label for="rounds">Number of rounds:</label>
-			<input id="rounds" type="number" placeholder="Max 15 rounds">
-			<input id="create_game" type="submit" value="Create Game">
-		</form>
+
+		<h1 id="web_title"> The Epic ChartRace</h1>
+
+		<div id="game_options">
+			<div id="players_options">
+				No. players:
+				<button class="incr_decr_buttons" id="decr_players">-</button>
+				<input class="game_values" id="num_players" type="text" value="2" readonly>
+				<button class="incr_decr_buttons" id="incr_players">+</button>
+			</div>
+			<div id="rounds_options">
+				No. rounds:
+				<button class="incr_decr_buttons" id="decr_rounds">-</button>
+				<input class="game_values" id="num_rounds" type="text" value="1" readonly>
+				<button class="incr_decr_buttons" id="incr_rounds">+</button>
+
+			</div>
+			<div id="speed_options">
+				Game speed:
+				<input id="game_speed" type="range" min="1" max="3">
+			</div>
+			<button id="define_game">Create Game</button>
+			<button id="run_game">Start game</button>
+		</div>
 
 		<!-- Temporary -->
 		<div style="height: 50px"></div>
@@ -37,11 +54,6 @@
 				<th>Score</th>
 			</tr>
 		</table>
-
-		<!-- Temporary -->
-		<div style="height: 50px"></div>
-
-		<button id="start_game">Start game</button>
 
 		<!-- Temporary -->
 		<div style="height: 50px"></div>

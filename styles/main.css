@@ -1,4 +1,8 @@
-#start_game {
+#run_game {
+	display: none;
+}
+
+#speed_options {
 	display: none;
 }
 

@@ -1,7 +1,39 @@
-#run_game {
-	display: none;
+
+
+/* Whole body and Page wrapper  */
+body {
+	background-image: url(../img/background_img.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
 }
 
+#page_wrapper {
+	background-color: rgba(251, 249, 255, 0.7);
+	margin-right: auto;
+	margin-left: auto;
+	max-width:1600px;
+	top: 0px;
+	padding-right: 10px;
+	padding-left: 10px;
+	border-radius: 4px;
+}
+
+/* Title */
+#title_container {
+	text-align: center;
+	padding: 10px;
+}
+
+h1 {
+	margin: 0;
+}
+
+
+/* Game options: buttons, inputs & range */
+.game_values {
+	display: inline;
+}
 #reset_game {
 	display: none;
 }
@@ -20,22 +52,9 @@
 	border: 2px solid;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+button:disabled {
+	background-color: greenyellow;
+}
 
 
 

@@ -21,46 +21,47 @@
 
 	<body>
 
-		<h1 id="web_title"> The Epic ChartRace</h1>
+		<div id="page_wrapper">
 
-		<div id="game_options">
-			<div id="players_options">
-				No. players:
-				<button class="incr_decr_buttons" id="decr_players">-</button>
-				<input class="game_values" id="num_players" type="text" value="2" readonly>
-				<button class="incr_decr_buttons" id="incr_players">+</button>
+			<div id="title_container">
+				<h1 id="web_title"> The Epic ChartRace</h1>
 			</div>
-			<div id="rounds_options">
-				No. rounds:
-				<button class="incr_decr_buttons" id="decr_rounds">-</button>
-				<input class="game_values" id="num_rounds" type="text" value="1" readonly>
-				<button class="incr_decr_buttons" id="incr_rounds">+</button>
+			
 
+			<div id="game_options">
+				<div id="players_options">
+					No. players:
+					<button class="incr_decr_buttons" id="decr_players">-</button>
+					<div class="game_values" id="num_players">2</div>
+					<button class="incr_decr_buttons" id="incr_players">+</button>
+				</div>
+				<div id="rounds_options">
+					No. rounds:
+					<button class="incr_decr_buttons" id="decr_rounds">-</button>
+					<div class="game_values" id="num_rounds">1</div>
+					<button class="incr_decr_buttons" id="incr_rounds">+</button>
+
+				</div>
+				<div id="speed_options">
+					Game speed:
+					<input id="game_speed" type="range" min="0" max="2">
+				</div>
+				<button id="reset_game">Reset Game</button>
+				<button id="create_game">Create Game</button>
+				<button id="run_game" disabled>Run game</button>
 			</div>
-			<div id="speed_options">
-				Game speed:
-				<input id="game_speed" type="range" min="0" max="2">
-			</div>
-			<button id="reset_game">Reset Game</button>
-			<button id="create_game">Create Game</button>
-			<button id="run_game">Run game</button>
+
+
+			<table id="game_table">
+				<tr>
+					<th>Name</th>
+					<th>Score</th>
+				</tr>
+			</table>
+
+			<canvas id="myChart"></canvas>
+		
 		</div>
-
-		<!-- Temporary -->
-		<div style="height: 50px"></div>
-
-		<table id="game_table">
-			<tr>
-				<th>Name</th>
-				<th>Score</th>
-			</tr>
-		</table>
-
-		<!-- Temporary -->
-		<div style="height: 50px"></div>
-
-		<div id="test"></div>
-
 
 	</body>
 

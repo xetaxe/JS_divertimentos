@@ -67,12 +67,6 @@ class Game {
 		}
 	}
 
-	createGame(){
-		if (this.activePlayers.length == 0) {return false;}
-
-		this.createPlayers();
-		this.displayPlayers();
-	}
 
 	deleteGame(){
 		this.numPlayers = 0;
@@ -82,18 +76,15 @@ class Game {
 		this.gameSpeed = 1;
 		this.activePlayers = [];
 		this.gameInterval;
-
-		$("#game_table").empty();
-		$("#game_table").append("<tr><th>Name</td><th>Score</th></tr>");
 	}
 
-	checkEndGame(){
-		if (this.currentRound < this.numRounds){
-			return false;
-		}
+	// checkEndGame(){
+	// 	if (this.currentRound < this.numRounds){
+	// 		return false;
+	// 	}
 
-		this.activeGame = false;
-	}
+	// 	this.activeGame = false;
+	// }
 
 	changeSpeed(gameSpeed){
 		this.gameSpeed = GAME_SPEEDS[gameSpeed];

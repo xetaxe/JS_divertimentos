@@ -8,18 +8,18 @@ $(document).ready(function() {
 		let myInterval;
 
 		$("#decr_players").click( function() {
-			let currentValue = $("#num_players").val();
+			let currentValue = parseInt($("#num_players").text());
 			if (currentValue > 2){
 				currentValue--;
-				$("#num_players").val(currentValue);
+				$("#num_players").text(currentValue);
 			}
 		});
 		$("#decr_players").mousedown( function() {
 			myInterval = setInterval(function (){
-				let currentValue = $("#num_players").val();
+				let currentValue = parseInt($("#num_players").text());
 				if (currentValue > 2){
 					currentValue--;
-					$("#num_players").val(currentValue);
+					$("#num_players").text(currentValue);
 				}
 			}, 100);
 		});
@@ -28,18 +28,18 @@ $(document).ready(function() {
 		});
 
 		$("#incr_players").click( function() {
-			let currentValue = $("#num_players").val();
+			let currentValue = parseInt($("#num_players").text());
 			if (currentValue < 15){
 				currentValue++;
-				$("#num_players").val(currentValue);
+				$("#num_players").text(currentValue);
 			}
 		});
 		$("#incr_players").mousedown( function() {
 			myInterval = setInterval(function (){
-				let currentValue = $("#num_players").val();
+				let currentValue = parseInt($("#num_players").text());
 				if (currentValue < 15){
 					currentValue++;
-					$("#num_players").val(currentValue);
+					$("#num_players").text(currentValue);
 				}
 			}, 100);
 		});
@@ -49,22 +49,30 @@ $(document).ready(function() {
 
 
 		$("#decr_rounds").click( function() {
-			let currentValue = $("#num_rounds").val();
-			if (currentValue > 1){
-				currentValue--;
-				$("#num_rounds").val(currentValue);
-			} else if (currentValue == "Unlimited"){
-				$("#num_rounds").val(15);
+			let currentValue = $("#num_rounds").text();
+			console.log(currentValue);
+			if (currentValue == "Unlimited"){
+				$("#num_rounds").text(15);
+			} else {
+				currentValue = parseInt(currentValue);
+				if (currentValue > 1){
+					currentValue--;
+					$("#num_rounds").text(currentValue);
+				}
 			}
 		});
 		$("#decr_rounds").mousedown( function() {
 			myInterval = setInterval(function (){
-				let currentValue = $("#num_rounds").val();
-				if (currentValue > 1){
-					currentValue--;
-					$("#num_rounds").val(currentValue);
-				} else if (currentValue == "Unlimited"){
-					$("#num_rounds").val(15);
+				let currentValue = $("#num_rounds").text();
+				if (currentValue == "Unlimited"){
+					currentValue = 15;
+					$("#num_rounds").text(currentValue);
+				} else {
+					currentValue = parseInt(currentValue);
+					if (currentValue > 1){
+						currentValue--;
+						$("#num_rounds").text(currentValue);
+					}
 				}
 			}, 100);
 		});
@@ -73,22 +81,22 @@ $(document).ready(function() {
 		});
 
 		$("#incr_rounds").click( function() {
-			let currentValue = $("#num_rounds").val();
+			let currentValue = parseInt($("#num_rounds").text());
 			if (currentValue < 15){
 				currentValue++;
-				$("#num_rounds").val(currentValue);
+				$("#num_rounds").text($("#num_rounds").text());
 			}else if (currentValue == 15){
-				$("#num_rounds").val("Unlimited");
+				$("#num_rounds").text("Unlimited");
 			}
 		});
 		$("#incr_rounds").mousedown( function() {
 			myInterval = setInterval(function (){
-				let currentValue = $("#num_rounds").val();
+				let currentValue = parseInt($("#num_rounds").text());
 				if (currentValue < 15){
 					currentValue++;
-					$("#num_rounds").val(currentValue);
+					$("#num_rounds").text(currentValue);
 				}else if (currentValue == 15){
-					$("#num_rounds").val("Unlimited");
+					$("#num_rounds").text("Unlimited");
 				}
 			}, 100);
 		});
@@ -105,14 +113,14 @@ $(document).ready(function() {
 	//Create & reset game
 	$("#create_game").click( function(){
 
-		const players = $("#num_players").val();
-		let rounds = $("#num_rounds").val();
+		const players = parseInt($("#num_players").val());
+		let rounds = parseInt($("#num_rounds").text());
 
 		if (players == null || players == NaN || players < 2 || players > 15) {
 			$("#test").text("Invalid number of players");
 			return false;
 		}
-		if (rounds == "Unlimited") {
+		if (rounds == NaN) {
 			rounds = Infinity;
 		} else if (rounds == NaN || rounds < 1 || rounds > 15) {
 			$("#test").text("Invalid number of rounds");
@@ -127,7 +135,7 @@ $(document).ready(function() {
 		$("#players_options").hide();
 		$("#rounds_options").hide();
 		$("#speed_options").show();
-		$("#run_game").show();
+		$("#run_game").prop("disabled", false);
 		$("#reset_game").show();
 
 		return false;
@@ -139,11 +147,14 @@ $(document).ready(function() {
 
 		game.deleteGame();
 
+		$("#game_table").empty();
+		$("#game_table").append("<tr><th>Name</td><th>Score</th></tr>");
+
 		$("#create_game").show();
 		$("#players_options").show();
 		$("#rounds_options").show();
 		$("#speed_options").hide();
-		$("#run_game").hide();
+		$("#run_game").prop("disabled", true);
 		$("#reset_game").hide();
 
 		return false;
@@ -156,9 +167,11 @@ $(document).ready(function() {
 		if (game.activeGame == false){
 			game.activeGame = true;
 			$("#run_game").text("Stop Game");
+			$("#reset_game").prop("disabled", true);
 		} else {
 			game.activeGame = false;
 			$("#run_game").text("Run Game");
+			$("#reset_game").prop("disabled", false);
 			clearInterval(game.gameInterval);
 		}
 
@@ -171,29 +184,17 @@ $(document).ready(function() {
 					game.newRound();
 					game.orderPlayers();
 					game.displayPlayers();
-					game.checkEndGame();
+					if(game.currentRound == game.numRounds){
+						$("#run_game").text("Run Game");
+						$("#run_game").prop("disabled", true);
+						$("#reset_game").prop("disabled", false);
+					}
 					gameLoop();
 				}
 			}, GAME_SPEEDS[game.gameSpeed]);
 		};
 
 		gameLoop();
-
-
-
-		// game.gameInterval = setInterval( function(){
-		// 	if(game.currentRound < game.numRounds && game.activeGame == true){
-		// 		console.log("hola");
-		// 		game.currentRound++;
-		// 		game.newRound();
-		// 		game.orderPlayers();
-		// 		game.displayPlayers();
-		// 		game.checkEndGame();
-		// 	} else {
-		// 		clearInterval(game.gameInterval);
-		// 	}
-		// }, GAME_SPEEDS[game.gameSpeed]);
-
 
 	});
 

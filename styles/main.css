@@ -1,6 +1,86 @@
+/* VARIABLES  */
+
+:root {
+	--test-variable: red;
+}
+
+
+/* RESPONSIVE BEHAVIOUR */
+
+* {
+	box-sizing: border-box;
+}
+
+.row {
+	overflow: hidden;
+}
+
+.row::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+/* For mobile phones: */
+
+[class*="col"] {
+	float: left;
+	border: red solid 1px;
+}
+
+.col1 {width: 8.33%;}
+.col2 {width: 16.66%;}
+.col3 {width: 25%;}
+.col4 {width: 33.33%;}
+.col5 {width: 41.66%;}
+.col6 {width: 100%;}
+.col7 {width: 100%;}
+.col8 {width: 66.66%;}
+.col9 {width: 100%;}
+.col10 {width: 100%;}
+.col11 {width: 100%;}
+.col12 {width: 100%;}
+
+  
+@media only screen and (min-width: 600px) {
+	/* For tablets: */
+	.colt1 {width: 8.33%;}
+	.colt2 {width: 16.66%;}
+	.colt3 {width: 25%;}
+	.colt4 {width: 33.33%;}
+	.colt5 {width: 41.66%;}
+	.colt6 {width: 50%;}
+	.colt7 {width: 58.33%;}
+	.colt8 {width: 66.66%;}
+	.colt9 {width: 75%;}
+	.colt10 {width: 83.33%;}
+	.colt11 {width: 91.66%;}
+	.colt12 {width: 100%;}
+}
+  
+@media only screen and (min-width: 768px) {
+	/* For desktop: */
+	.col1 {width: 8.33%;}
+	.col2 {width: 16.66%;}
+	.col3 {width: 25%;}
+	.col4 {width: 33.33%;}
+	.col5 {width: 41.66%;}
+	.col6 {width: 50%;}
+	.col7 {width: 58.33%;}
+	.col8 {width: 66.66%;}
+	.col9 {width: 75%;}
+	.col10 {width: 83.33%;}
+	.col11 {width: 91.66%;}
+	.col12 {width: 100%;}
+}
+
+
+/* ///////////////////////////////////////////////////////////////////// */
+
 
 
 /* Whole body and Page wrapper  */
+
 body {
 	background-image: url(../img/background_img.jpg);
 	background-repeat: no-repeat;
@@ -14,26 +94,78 @@ body {
 	margin-left: auto;
 	max-width:1600px;
 	top: 0px;
-	padding-right: 10px;
-	padding-left: 10px;
+	min-height: 98vh;
+	padding-right: 5px;
+	padding-left: 5px;
 	border-radius: 4px;
+	/* position: relative;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap; */
+	overflow: scroll; 
 }
 
+#page_wrapper::after {
+	clear: both;
+}
+
+
 /* Title */
+
 #title_container {
 	text-align: center;
-	padding: 10px;
+	padding: 5px;
+	font-size: calc(2vw + 2px);
 }
 
 h1 {
 	margin: 0;
 }
 
+/* Chart */
+
+#myChart {
+	width: 100%;
+	max-height: 50vh;
+	aspect-ratio: 1/1;
+	background-color: white;
+}
+
+
+/* DIVs and positioning */
+
+#game_options {
+	display: flex;
+	min-height: 40vh;
+	flex-direction: column;
+	flex-wrap: wrap;
+	overflow: scroll;
+}
+
+
 
 /* Game options: buttons, inputs & range */
+
+
+#game_options button {
+	background-color: green;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	border: 0;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+}
+
+#game_buttons button{
+	border-radius: 0;
+}
+
 .game_values {
 	display: inline;
 }
+
 #reset_game {
 	display: none;
 }
@@ -42,74 +174,21 @@ h1 {
 	display: none;
 }
 
+#game_speed {
+	transform: rotate(-90deg);
+}
+
 #game_table {
 	text-align: center;
-	width: 600px;
 	border-collapse: collapse;
 }
 
 #game_table th, td{
 	border: 2px solid;
+	margin: 0;
 }
 
 button:disabled {
 	background-color: greenyellow;
 }
 
-
-
-
-
-
-
-
-
-
-/* RESPONSIVE BEHAVIOUR */
-
-/* For mobile phones: */
-[class*="col"] {
-	width: 100%;
-	float: left;
-	padding: 15px;
-  }
-  
-  @media only screen and (min-width: 600px) {
-	  /* For tablets: */
-	  .colt1 {width: 8.33%;}
-	  .colt2 {width: 16.66%;}
-	  .colt3 {width: 25%;}
-	  .colt4 {width: 33.33%;}
-	  .colt5 {width: 41.66%;}
-	  .colt6 {width: 50%;}
-	  .colt7 {width: 58.33%;}
-	  .colt8 {width: 66.66%;}
-	  .colt9 {width: 75%;}
-	  .colt10 {width: 83.33%;}
-	  .colt11 {width: 91.66%;}
-	  .colt12 {width: 100%;}
-  
-	  #navigation-buttons {
-		  display: block;
-	  }
-  }
-  
-  @media only screen and (min-width: 768px) {
-	  /* For desktop: */
-	  .col1 {width: 8.33%;}
-	  .col2 {width: 16.66%;}
-	  .col3 {width: 25%;}
-	  .col4 {width: 33.33%;}
-	  .col5 {width: 41.66%;}
-	  .col6 {width: 50%;}
-	  .col7 {width: 58.33%;}
-	  .col8 {width: 66.66%;}
-	  .col9 {width: 75%;}
-	  .col10 {width: 83.33%;}
-	  .col11 {width: 91.66%;}
-	  .col12 {width: 100%;}
-  
-	  #navigation-buttons {
-		  display: block;
-	  }
-  }

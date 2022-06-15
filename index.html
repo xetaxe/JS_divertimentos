@@ -23,43 +23,52 @@
 
 		<div id="page_wrapper">
 
-			<div id="title_container">
-				<h1 id="web_title"> The Epic ChartRace</h1>
+			<div class="row col12 colt12">
+				<div id="title_container">
+					<h1 id="web_title"> The Epic ChartRace</h1>
+				</div>
+			</div>
+
+			<div class="row col6 colt12"> 
+				<canvas id="myChart"></canvas>
 			</div>
 			
+			<div class="row"></div>
+				<table id="game_table" class="col8">
+					<tr>
+						<th>Name</th>
+						<th>Score</th>
+					</tr>
+				</table>
 
-			<div id="game_options">
-				<div id="players_options">
-					No. players:
-					<button class="incr_decr_buttons" id="decr_players">-</button>
-					<div class="game_values" id="num_players">2</div>
-					<button class="incr_decr_buttons" id="incr_players">+</button>
-				</div>
-				<div id="rounds_options">
-					No. rounds:
-					<button class="incr_decr_buttons" id="decr_rounds">-</button>
-					<div class="game_values" id="num_rounds">1</div>
-					<button class="incr_decr_buttons" id="incr_rounds">+</button>
 
+
+				<div id="game_options" class="col4">
+					<div id="players_options">
+						No. Players:
+						<button class="incr_decr_buttons" id="decr_players">-</button>
+						<div class="game_values" id="num_players">2</div>
+						<button class="incr_decr_buttons" id="incr_players">+</button>
+					</div>
+					<div id="rounds_options">
+						No. Rounds:
+						<button class="incr_decr_buttons" id="decr_rounds">-</button>
+						<div class="game_values" id="num_rounds">1</div>
+						<button class="incr_decr_buttons" id="incr_rounds">+</button>
+
+					</div>
+					<div id="speed_options">
+						Game speed:
+						<input id="game_speed" type="range" min="0" max="2">
+					</div>
+					<div id="game_buttons">
+						<button id="reset_game">Reset Game</button>
+						<button id="create_game">Create Game</button>
+						<button id="run_game" disabled>Run Game</button>
+					</div>
 				</div>
-				<div id="speed_options">
-					Game speed:
-					<input id="game_speed" type="range" min="0" max="2">
-				</div>
-				<button id="reset_game">Reset Game</button>
-				<button id="create_game">Create Game</button>
-				<button id="run_game" disabled>Run game</button>
+
 			</div>
-
-
-			<table id="game_table">
-				<tr>
-					<th>Name</th>
-					<th>Score</th>
-				</tr>
-			</table>
-
-			<canvas id="myChart"></canvas>
 		
 		</div>
 

@@ -117,9 +117,6 @@ class Game {
 
 	runGame(){
 		if (this.activePlayers.length == 0) {return false;}
-		
-
-
 
 
 	}

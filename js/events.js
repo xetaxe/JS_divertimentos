@@ -3,6 +3,15 @@ var game;
 
 $(document).ready(function() {
 
+	//Correct display of elements:
+	// {
+	// 	let chartHeight = $("#myChart").width();
+	// 	chartHeight *= 0.75;
+	// 	if ($("#myChart").height() < chartHeight) {
+	// 		$("#myChart").height(chartHeight);
+	// 	}
+	// }
+
 	//Modify no. of players and rounds
 	{
 		let myInterval;
@@ -51,8 +60,9 @@ $(document).ready(function() {
 		$("#decr_rounds").click( function() {
 			let currentValue = $("#num_rounds").text();
 			console.log(currentValue);
-			if (currentValue == "Unlimited"){
-				$("#num_rounds").text(15);
+			if (currentValue == "∞"){
+				currentValue = 15;
+				$("#num_rounds").text(currentValue);
 			} else {
 				currentValue = parseInt(currentValue);
 				if (currentValue > 1){
@@ -64,7 +74,7 @@ $(document).ready(function() {
 		$("#decr_rounds").mousedown( function() {
 			myInterval = setInterval(function (){
 				let currentValue = $("#num_rounds").text();
-				if (currentValue == "Unlimited"){
+				if (currentValue == "∞"){
 					currentValue = 15;
 					$("#num_rounds").text(currentValue);
 				} else {
@@ -84,9 +94,9 @@ $(document).ready(function() {
 			let currentValue = parseInt($("#num_rounds").text());
 			if (currentValue < 15){
 				currentValue++;
-				$("#num_rounds").text($("#num_rounds").text());
-			}else if (currentValue == 15){
-				$("#num_rounds").text("Unlimited");
+				$("#num_rounds").text(currentValue);
+			} else if (currentValue == 15){
+				$("#num_rounds").html("∞");
 			}
 		});
 		$("#incr_rounds").mousedown( function() {
@@ -96,7 +106,7 @@ $(document).ready(function() {
 					currentValue++;
 					$("#num_rounds").text(currentValue);
 				}else if (currentValue == 15){
-					$("#num_rounds").text("Unlimited");
+					$("#num_rounds").text("∞");
 				}
 			}, 100);
 		});
@@ -113,19 +123,24 @@ $(document).ready(function() {
 	//Create & reset game
 	$("#create_game").click( function(){
 
-		const players = parseInt($("#num_players").val());
+		const players = parseInt($("#num_players").text());
 		let rounds = parseInt($("#num_rounds").text());
+
+		console.log(rounds);
 
 		if (players == null || players == NaN || players < 2 || players > 15) {
 			$("#test").text("Invalid number of players");
 			return false;
 		}
-		if (rounds == NaN) {
+		if (isNaN(rounds)) {
+			console.log("Hola");
 			rounds = Infinity;
-		} else if (rounds == NaN || rounds < 1 || rounds > 15) {
+		} else if (rounds < 1 || rounds > 15) {
 			$("#test").text("Invalid number of rounds");
 			return false;
 		}
+
+		console.log(rounds);
 
 		game = new Game(players, rounds);
 		game.createPlayers();

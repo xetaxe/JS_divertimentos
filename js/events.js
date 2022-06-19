@@ -3,14 +3,6 @@ var game;
 
 $(document).ready(function() {
 
-	//Correct display of elements:
-	// {
-	// 	let chartHeight = $("#myChart").width();
-	// 	chartHeight *= 0.75;
-	// 	if ($("#myChart").height() < chartHeight) {
-	// 		$("#myChart").height(chartHeight);
-	// 	}
-	// }
 
 	//Modify no. of players and rounds
 	{
@@ -59,7 +51,6 @@ $(document).ready(function() {
 
 		$("#decr_rounds").click( function() {
 			let currentValue = $("#num_rounds").text();
-			console.log(currentValue);
 			if (currentValue == "∞"){
 				currentValue = 15;
 				$("#num_rounds").text(currentValue);
@@ -169,7 +160,7 @@ $(document).ready(function() {
 		$("#players_options").show();
 		$("#rounds_options").show();
 		$("#speed_options").hide();
-		$("#run_game").prop("disabled", true);
+		$("#run_game").prop('disabled', true);
 		$("#reset_game").hide();
 
 		return false;

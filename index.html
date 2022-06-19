@@ -4,13 +4,14 @@
 	<head>
 		<meta charset="utf-8">
 		<title> ·LIVE· Ranking </title>
-		<link rel="icon" type="image/title-icon" href="images/title-icon.ico" >
+		<!-- <link rel="icon" type="image/title-icon" href="images/title-icon.ico" > -->
 
 		<meta name="author" content="Nil Garcés">
 		<meta name="description" content="This is my personal web development portfolio, where I show the software projects I have worked on or I am currenty developing">
 		<meta name="twitter:title" content="Nil Garcés WebDev Portfolio">
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet"> 
 		<link rel="stylesheet" href="styles/main.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script src="js/events.js" defer></script>
@@ -29,7 +30,8 @@
 				</div>
 			</div>
 
-			<div class="row col6 colt12"> 
+			<div id="canvas_cotainer" class="row col6 colt12">
+				<div id="canvas_message">Waiting for the game to start...</div>
 				<canvas id="myChart"></canvas>
 			</div>
 			
@@ -45,21 +47,23 @@
 
 				<div id="game_options" class="col4">
 					<div id="players_options">
-						No. Players:
+						<div id="#no_players">No. Players:</div>
 						<button class="incr_decr_buttons" id="decr_players">-</button>
 						<div class="game_values" id="num_players">2</div>
 						<button class="incr_decr_buttons" id="incr_players">+</button>
 					</div>
 					<div id="rounds_options">
-						No. Rounds:
+						<div id="#no_rounds">No. Rounds:</div>
 						<button class="incr_decr_buttons" id="decr_rounds">-</button>
 						<div class="game_values" id="num_rounds">1</div>
 						<button class="incr_decr_buttons" id="incr_rounds">+</button>
 
 					</div>
 					<div id="speed_options">
-						Game speed:
-						<input id="game_speed" type="range" min="0" max="2">
+						<div id="#no_speed">Game speed:</div>
+						<div id="speed_bar">
+							<input id="game_speed" type="range" min="0" max="2">
+						</div>
 					</div>
 					<div id="game_buttons">
 						<button id="reset_game">Reset Game</button>

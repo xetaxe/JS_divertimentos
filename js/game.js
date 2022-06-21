@@ -30,8 +30,6 @@ class Game {
 		}
 		while(playersNames.length < this.numPlayers);
 
-		console.log(playersNames);
-
 		for(let i=0; i<this.numPlayers; i++){
 			
 			let newPlayer = new Player(playersNames[i]);
@@ -48,22 +46,8 @@ class Game {
 
 		this.activePlayers.sort(function(a, b) { return (b.score - a.score);})
 
-		console.log(this.activePlayers);
-
 		for(let player of this.activePlayers) {
 			player.updatePosition((this.activePlayers.indexOf(player) + 1));
-		}
-	}
-
-
-	displayPlayers(){
-		if (this.activePlayers.length == 0) {return false;}
-
-		$("#game_table").empty();
-		$("#game_table").append("<tr><th>Name</td><th>Score</th></tr>");
-
-		for (let player of this.activePlayers){
-			$("#game_table").append("<tr><td>" + player.position + ". " + player.name + "</td><td>" + player.score + "</td></tr>");
 		}
 	}
 
@@ -120,9 +104,5 @@ class Game {
 
 
 	}
-
-
-
-
 
 }

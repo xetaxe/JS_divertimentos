@@ -36,31 +36,34 @@
 			</div>
 			
 			<div class="row"></div>
-				<table id="game_table" class="col8">
-					<tr>
-						<th>Name</th>
-						<th>Score</th>
-					</tr>
-				</table>
+				<div id="game_table" class="col8">
+					<div class="table_header">
+						<div class="table_names">Name</div>
+						<div class="table_scores">Score</div>
+					</div>
+					<div id="wait_players">
+						<div id="wait_players_message">Players go here...</div>
+					</div>
+				</div>
 
 
 
 				<div id="game_options" class="col4">
 					<div id="players_options">
-						<div id="#no_players">No. Players:</div>
+						<div id="no_players">No. Players:</div>
 						<button class="incr_decr_buttons" id="decr_players">-</button>
 						<div class="game_values" id="num_players">2</div>
 						<button class="incr_decr_buttons" id="incr_players">+</button>
 					</div>
 					<div id="rounds_options">
-						<div id="#no_rounds">No. Rounds:</div>
+						<div id="no_rounds">No. Rounds:</div>
 						<button class="incr_decr_buttons" id="decr_rounds">-</button>
 						<div class="game_values" id="num_rounds">1</div>
 						<button class="incr_decr_buttons" id="incr_rounds">+</button>
 
 					</div>
 					<div id="speed_options">
-						<div id="#no_speed">Game speed:</div>
+						<div id="no_speed">Game speed:</div>
 						<div id="speed_bar">
 							<input id="game_speed" type="range" min="0" max="2">
 						</div>

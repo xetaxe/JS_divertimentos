@@ -117,25 +117,30 @@ $(document).ready(function() {
 		const players = parseInt($("#num_players").text());
 		let rounds = parseInt($("#num_rounds").text());
 
-		console.log(rounds);
-
 		if (players == null || players == NaN || players < 2 || players > 15) {
 			$("#test").text("Invalid number of players");
 			return false;
 		}
 		if (isNaN(rounds)) {
-			console.log("Hola");
 			rounds = Infinity;
 		} else if (rounds < 1 || rounds > 15) {
 			$("#test").text("Invalid number of rounds");
 			return false;
 		}
 
-		console.log(rounds);
-
 		game = new Game(players, rounds);
 		game.createPlayers();
-		game.displayPlayers();
+
+		$("#game_table").empty();
+		$("#game_table").append(`<div class="table_header">
+			<div class="table_names">Name</div>
+			<div class="table_scores">Score</div></div>`);
+
+		for (let player of game.activePlayers){
+			$("#game_table").append(`<div class="table_row" id="row_player_`+ player.position + `0">
+			<div class="table_names">`+ player.name + `</div>
+			<div class="table_scores">` + player.score + "</div></div>");
+		}
 
 		$("#create_game").hide();
 		$("#players_options").hide();
@@ -154,7 +159,11 @@ $(document).ready(function() {
 		game.deleteGame();
 
 		$("#game_table").empty();
-		$("#game_table").append("<tr><th>Name</td><th>Score</th></tr>");
+		$("#game_table").append(`<div class="table_header">
+			<div class="table_names">Name</div>
+			<div class="table_scores">Score</div></div>
+			<div id="wait_players">
+			<div id="wait_players_message">Players go here...</div></div>`);
 
 		$("#create_game").show();
 		$("#players_options").show();
@@ -185,15 +194,15 @@ $(document).ready(function() {
 		function gameLoop(){
 			setTimeout(function() {
 				if(game.currentRound < game.numRounds && game.activeGame == true){
-					console.log("hola");
 					game.currentRound++;
 					game.newRound();
 					game.orderPlayers();
-					game.displayPlayers();
+					swapPlayers(game);
 					if(game.currentRound == game.numRounds){
 						$("#run_game").text("Run Game");
 						$("#run_game").prop("disabled", true);
 						$("#reset_game").prop("disabled", false);
+						return 0;
 					}
 					gameLoop();
 				}
@@ -204,4 +213,39 @@ $(document).ready(function() {
 
 	});
 
+
+	function swapPlayers(game) {
+		if (game.activePlayers.length == 0) {return false;}
+
+		let previousRound = game.currentRound - 1;
+		let distance = $("#row_player_1" + previousRound).outerHeight(true);
+
+		for(let player of game.activePlayers) {
+			let swapPosition = player.position - player.previousPosition;
+			let yMove = swapPosition * distance;
+
+			console.log(yMove);
+			console.log("#row_player_" + player.previousPosition + previousRound)
+
+			$("#row_player_" + player.previousPosition + previousRound).animate({
+				top: yMove
+			}, 1000)
+
+			$("#row_player_" + player.previousPosition + previousRound).attr("id", "row_player_" + player.position + game.currentRound);
+			console.log("row_player_" + player.position + game.currentRound);
+		}
+
+	}
+
 });
+
+// GAME_SPEEDS[game.gameSpeed]
+		// $("#game_table").empty();
+		// $("#game_table").append(`<div class="table_header">
+		// 	<div class="table_names">Name</div>
+		// 	<div class="table_scores">Score</div></div>`);
+
+		// for (let player of game.activePlayers){
+		// 	$("#game_table").append(`<div class="table_row" id="row_player_`+ player.position + `">
+		// 	<div class="table_names">`+ player.name + `</div>
+		// 	<div class="table_scores">` + player.score + "</div></div>");

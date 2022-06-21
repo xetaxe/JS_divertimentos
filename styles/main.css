@@ -88,6 +88,10 @@ body {
 	background-size: cover;
 	font-family: 'Merriweather', serif;
 	text-align: center;
+	margin-top: 1.5vh;
+	margin-bottom: 1.5vh;
+	margin-left: 1.5vw;
+	margin-right: 1.5vw;
 }
 
 #page_wrapper {
@@ -96,10 +100,10 @@ body {
 	margin-left: auto;
 	max-width:1600px;
 	top: 0px;
-	min-height: 98vh;
-	padding-right: 5px;
-	padding-left: 5px;
-	border-radius: 4px;
+	min-height: 96vh;
+	padding-right: 1vw;
+	padding-left: 1vw;
+	border-radius: 1vw;
 	overflow: scroll; 
 }
 
@@ -167,14 +171,10 @@ h1 {
 
 /* DIVs and positioning */
 
-#game_table {
-	margin-top: 1vh;
-	margin-bottom: 1vh;
-}
-
 #game_options {
 	padding-top: 1vh;
 	display: flex;
+	justify-content: center;
 	min-height: 40vh;
 	flex-direction: column;
 	flex-wrap: wrap;
@@ -203,13 +203,78 @@ h1 {
 /* Game table */
 
 #game_table {
-	text-align: center;
-	border-collapse: collapse;
+	margin: 0;
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+	padding: 0;
+	position: relative;
+	overflow: hidden;
 }
 
-#game_table th, td{
-	border: 2px solid;
-	margin: 0;
+#wait_players_message {
+	position: absolute;
+	width: 100%;
+	top: 15vh;
+	color: rgb(0, 40, 0);
+	text-align: center;
+	font-size: 2vh;
+	animation-name: periodicfading;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+}
+
+@keyframes periodicfading {
+    0% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 1.0;
+    }
+    100% {
+        opacity: 0.3;
+    }
+}
+
+#wait_players {
+	width: 100%;
+	border-radius: 0vh 0vh 1vh 1vh;
+	background-color: rgb(200, 230, 200, 0.8);
+	height: 30vh;
+	max-height: 30vh;
+	width: 100%;
+}
+
+.table_header{
+	background-color: rgb(40, 108, 0);
+	padding-top: 0.5vh;
+	padding-bottom: 0.5vh;
+	color: white;
+	width: 100%;
+	border-radius: 1vh 1vh 0 0;
+	overflow: hidden;
+}
+
+.table_row {
+	background-color: rgb(200, 250, 200);
+	margin-top: 0.2vh;
+	padding-top: 0.5vh;
+	padding-bottom: 0.5vh;
+	width: 100%;
+	border: 1px solid rgb(0, 48, 0);
+	border-radius: 0.7vh;
+	overflow: hidden;
+}
+
+.table_names {
+	width: 60%;
+	float: left;
+}
+
+.table_scores {
+	width: 40%;
+	float: left;
 }
 
 
@@ -218,7 +283,7 @@ h1 {
 #game_options button {
 	background-color: green;
 	color: white;
-	font-weight: bold;
+	font-weight: 700;
 	text-align: center;
 	border: 0;
 	width: 10vw;
@@ -232,9 +297,10 @@ h1 {
 }
 
 #game_buttons button{
-	border-radius: 0;
+	border-radius: 1vw;
 	margin-top: 1.5vh;
 	width: 90%;
+	font-size: min(3.8vw, 20px);
 }
 
 #run_game:disabled, #reset_game:disabled {
@@ -245,12 +311,21 @@ h1 {
 	display: inline-block;
 }
 
+#run_game {
+	margin-bottom: 1vh;;
+}
+
 #reset_game {
 	display: none;
 }
 
 #speed_options {
 	display: none;
+}
+
+#no_speed {
+	color:rgb(0, 40, 0);
+	font-size: 4vw;
 }
 
 #speed_bar {

@@ -3,6 +3,7 @@ var game;
 
 $(document).ready(function() {
 
+	let myChart;
 
 	//Modify no. of players and rounds
 	{
@@ -171,6 +172,9 @@ $(document).ready(function() {
 		$("#speed_options").hide();
 		$("#run_game").prop('disabled', true);
 		$("#reset_game").hide();
+		$("#canvas_message").show();
+
+		myChart.destroy();
 
 		return false;
 	});
@@ -183,12 +187,22 @@ $(document).ready(function() {
 			game.activeGame = true;
 			$("#run_game").text("Stop Game");
 			$("#reset_game").prop("disabled", true);
+
+			myChart = new Chart(
+				document.getElementById("myChart"),
+				game.chartConfig
+			);
+
 		} else {
 			game.activeGame = false;
 			$("#run_game").text("Run Game");
 			$("#reset_game").prop("disabled", false);
 			clearInterval(game.gameInterval);
+			myChart.destroy();
 		}
+
+		$("#canvas_message").hide();
+
 
 
 		function gameLoop(){
@@ -214,38 +228,33 @@ $(document).ready(function() {
 	});
 
 
-	function swapPlayers(game) {
+	async function swapPlayers(game) {
 		if (game.activePlayers.length == 0) {return false;}
 
 		let previousRound = game.currentRound - 1;
 		let distance = $("#row_player_1" + previousRound).outerHeight(true);
 
+		console.log(game.activePlayers);
+		console.log(game.activePlayers.position);
+
 		for(let player of game.activePlayers) {
 			let swapPosition = player.position - player.previousPosition;
-			let yMove = swapPosition * distance;
+			let yMove = (swapPosition * distance).toString();
+			let rowId = "#row_player_" + player.previousPosition + previousRound;
 
-			console.log(yMove);
-			console.log("#row_player_" + player.previousPosition + previousRound)
+			$(rowId).animate({
+				top: +yMove,
+				'z-index': (game.numPlayers + swapPosition)
+			}, GAME_SPEEDS[game.gameSpeed] *0.5)
 
-			$("#row_player_" + player.previousPosition + previousRound).animate({
-				top: yMove
-			}, 1000)
-
-			$("#row_player_" + player.previousPosition + previousRound).attr("id", "row_player_" + player.position + game.currentRound);
-			console.log("row_player_" + player.position + game.currentRound);
+			$(rowId).empty();
+			await $(rowId).append(`<div class="table_names">` + player.name + `</div>
+			<div class="table_scores">` + player.score + "</div>");
+			await $(rowId).prop("id", "row_player_" + player.position + game.currentRound);
 		}
 
 	}
 
+
+
 });
-
-// GAME_SPEEDS[game.gameSpeed]
-		// $("#game_table").empty();
-		// $("#game_table").append(`<div class="table_header">
-		// 	<div class="table_names">Name</div>
-		// 	<div class="table_scores">Score</div></div>`);
-
-		// for (let player of game.activePlayers){
-		// 	$("#game_table").append(`<div class="table_row" id="row_player_`+ player.position + `">
-		// 	<div class="table_names">`+ player.name + `</div>
-		// 	<div class="table_scores">` + player.score + "</div></div>");

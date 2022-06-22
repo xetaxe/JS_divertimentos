@@ -11,6 +11,8 @@ class Game {
 		this.gameSpeed = 1;
 		this.activePlayers = [];
 		this.gameInterval;
+		this.chartData = {};
+		this.chartConfig = {};
 	}
 
 
@@ -37,6 +39,38 @@ class Game {
 			this.activePlayers.push(newPlayer);
 		}
 
+		this.chartData = {
+						
+			// labels: [
+			// 	'January',
+			// 	'February',
+			// 	'March',
+			// 	'April',
+			// 	'May',
+			// 	'June',
+			// ],
+			datasets: [{
+				label: "none",
+				pointRadius: 0,
+				backgroundColor: 'rgb(255, 255, 255)', //Line color
+				borderColor: 'rgb(255, 99, 132)',
+				data: [0, 10, 5, 2, 20, 30, 45],
+			}]
+		}
+
+		this.chartConfig = {
+			type: 'line',
+			data: this.chartData,
+			options: {
+				maintainAspectRatio: false,
+				plugins: {
+					legend: {
+						display: false
+					}
+				}
+			}
+		}
+
 		return;
 	}
 
@@ -60,6 +94,7 @@ class Game {
 		this.gameSpeed = 1;
 		this.activePlayers = [];
 		this.gameInterval;
+		this.chartInfo;
 	}
 
 	// checkEndGame(){

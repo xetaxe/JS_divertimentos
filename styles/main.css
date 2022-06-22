@@ -104,7 +104,7 @@ body {
 	padding-right: 1vw;
 	padding-left: 1vw;
 	border-radius: 1vw;
-	overflow: scroll; 
+	overflow: scroll;
 }
 
 #page_wrapper::after {
@@ -265,6 +265,7 @@ h1 {
 	border: 1px solid rgb(0, 48, 0);
 	border-radius: 0.7vh;
 	overflow: hidden;
+	position: relative;
 }
 
 .table_names {

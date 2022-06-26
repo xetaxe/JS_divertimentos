@@ -339,8 +339,8 @@ h1 {
 #game_speed {
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	transform: rotate(90deg);
-	background: linear-gradient(to left, rgb(0, 160, 0), rgb(0, 80, 0));
+	transform: rotate(-90deg);
+	background: linear-gradient(to right, rgb(0, 160, 0), rgb(0, 80, 0));
 	outline: none;
 	opacity: 0.7;
 	-webkit-transition: .2s;

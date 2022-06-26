@@ -7,6 +7,7 @@ class Player {
 		this.score = 0;
 		this.position = 0;
 		this.previousPosition = 0;
+		this.divIndex = 0;
 	}
 
 	updatePosition(index){

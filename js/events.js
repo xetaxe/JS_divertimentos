@@ -108,7 +108,8 @@ $(document).ready(function() {
 	}
 
 	$("#game_speed").change( function() {
-		game.gameSpeed = parseInt($("#game_speed").val());
+		let gameSpeed = parseInt($("#game_speed").val());
+		game.gameSpeed = (0.45) * gameSpeed * gameSpeed - 90 * gameSpeed + 5000;
 	})
 
 
@@ -132,13 +133,14 @@ $(document).ready(function() {
 		game = new Game(players, rounds);
 		game.createPlayers();
 
+
 		$("#game_table").empty();
 		$("#game_table").append(`<div class="table_header">
 			<div class="table_names">Name</div>
 			<div class="table_scores">Score</div></div>`);
 
 		for (let player of game.activePlayers){
-			$("#game_table").append(`<div class="table_row" id="row_player_`+ player.position + `0">
+			$("#game_table").append(`<div class="table_row" id="row_player_`+ player.divIndex + `">
 			<div class="table_names">`+ player.name + `</div>
 			<div class="table_scores">` + player.score + "</div></div>");
 		}
@@ -175,6 +177,7 @@ $(document).ready(function() {
 		$("#canvas_message").show();
 
 		myChart.destroy();
+		myChart = null;
 
 		return false;
 	});
@@ -185,31 +188,35 @@ $(document).ready(function() {
 
 		if (game.activeGame == false){
 			game.activeGame = true;
+
+			let gameSpeed = parseInt($("#game_speed").val());
+			game.gameSpeed = (0.45) * gameSpeed * gameSpeed - 90 * gameSpeed + 5000;
+
 			$("#run_game").text("Stop Game");
 			$("#reset_game").prop("disabled", true);
-
-			myChart = new Chart(
-				document.getElementById("myChart"),
-				game.chartConfig
-			);
+			if(myChart == null) {
+				myChart = new Chart(
+					document.getElementById("myChart"),
+					game.chartConfig
+				);
+			}
 
 		} else {
 			game.activeGame = false;
 			$("#run_game").text("Run Game");
 			$("#reset_game").prop("disabled", false);
 			clearInterval(game.gameInterval);
-			myChart.destroy();
 		}
 
 		$("#canvas_message").hide();
-
-
 
 		function gameLoop(){
 			setTimeout(function() {
 				if(game.currentRound < game.numRounds && game.activeGame == true){
 					game.currentRound++;
 					game.newRound();
+					gameLoop();
+					myChart.update();
 					game.orderPlayers();
 					swapPlayers(game);
 					if(game.currentRound == game.numRounds){
@@ -218,9 +225,9 @@ $(document).ready(function() {
 						$("#reset_game").prop("disabled", false);
 						return 0;
 					}
-					gameLoop();
+	
 				}
-			}, GAME_SPEEDS[game.gameSpeed]);
+			}, game.gameSpeed);
 		};
 
 		gameLoop();
@@ -231,26 +238,20 @@ $(document).ready(function() {
 	async function swapPlayers(game) {
 		if (game.activePlayers.length == 0) {return false;}
 
-		let previousRound = game.currentRound - 1;
-		let distance = $("#row_player_1" + previousRound).outerHeight(true);
-
-		console.log(game.activePlayers);
-		console.log(game.activePlayers.position);
+		let distance = $("#row_player_1").outerHeight(true);
 
 		for(let player of game.activePlayers) {
 			let swapPosition = player.position - player.previousPosition;
 			let yMove = (swapPosition * distance).toString();
-			let rowId = "#row_player_" + player.previousPosition + previousRound;
-
+			let rowId = "#row_player_" + player.divIndex;
+	
+			$(rowId).css('z-index', (game.numPlayers - swapPosition));
 			$(rowId).animate({
-				top: +yMove,
-				'z-index': (game.numPlayers + swapPosition)
-			}, GAME_SPEEDS[game.gameSpeed] *0.5)
+				top: "+=" + yMove + "px",
+			}, game.gameSpeed * 0.5)
 
-			$(rowId).empty();
-			await $(rowId).append(`<div class="table_names">` + player.name + `</div>
-			<div class="table_scores">` + player.score + "</div>");
-			await $(rowId).prop("id", "row_player_" + player.position + game.currentRound);
+			$(rowId).children().last().remove();
+			$(rowId).append(`<div class="table_scores">` + player.score + "</div>");
 		}
 
 	}

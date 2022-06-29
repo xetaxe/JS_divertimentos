@@ -1,0 +1,16 @@
+<html>
+	<body>
+	<h1>My Header</h1>
+	<p id="par">My paragraph.</p>
+	</body>
+	<script>
+		for(let i=0; i<100000; i++){
+			var newDiv = document.createElement("p");
+  			var newContent = document.createTextNode("Hola!" + i + "saa");
+  			newDiv.appendChild(newContent);
+
+  			var currentDiv = document.getElementById("par");
+  			document.body.appendChild(newDiv, currentDiv)
+		}
+	</script>
+</html> 

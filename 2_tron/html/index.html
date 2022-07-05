@@ -2,13 +2,13 @@
 <html>
 	<head>
 		<title>First chat</title>
-		<script src="./comp/js/login.js" defer> </script>
+		<script src="login.js" defer> </script>
 	</head>
 	<body>
 		<div id="username">
-			<form onsubmit="newUser()">
-				<input type="text" name="username" required />
-				<input type="submit" />
+			<div>
+				<input type="text" id="username_input" name="username" required />
+				<button onclick="newUser()">Send user</button>
 			</form>
 		</div>
 	</body>

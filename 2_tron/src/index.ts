@@ -1,9 +1,12 @@
 import express from 'express';
+import fs from 'fs/promises';
+
 const app = express();
 const PORT = 5000;
 
 app.use(express.json());
 // app.use(express.urlencoded());
+app.set("view options", {layout: false});
 app.use(express.static('./comp/js'));
 app.use(express.static('./html'));
 app.use(express.static('./css'));
@@ -29,7 +32,9 @@ app.post('/new_user', (req, res) => {
 	} else{
 		users.push(newUser);
 		console.log(users);
-		res.send("new");
+
+		res.set('Content-Type', 'text/html');
+		res.sendFile('/chat.html', {root:'html'});
 	}
 });
 

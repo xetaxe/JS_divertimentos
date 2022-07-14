@@ -10,16 +10,18 @@ async function newUser() {
 	xhttp.onload = function() {
 		if (this.responseText === "exists") {
 			document.getElementById("username")!.innerHTML="User already exists";
-			console.log("f");
 		} else {
-			console.log("g");
-			(async () => {
-				console.log("e");
-				let x = await fetch("/chat");
-				console.log(x);
-				let y = await x.text();
-				document.body.innerHTML = y;
-			})();
+			document.body.innerHTML = this.responseText;
+
+			//Old, with two HTTP requests
+			// (async () => {
+			// 	console.log("e");
+			// 	let x = await fetch("/chat");
+			// 	console.log(x);
+			// 	let y = await x.text();
+			// 	document.body.innerHTML = y;
+			// })();
+			//document.location = "/chat" <-- buscar info
 		}
 	}
 };

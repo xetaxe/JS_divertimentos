@@ -21,12 +21,11 @@ function newUser() {
                 document.getElementById("username").innerHTML = "User already exists";
             }
             else {
-                document.body.innerHTML = this.responseText;
-                //Old, with two HTTP requests
+                window.location.replace('/chat.html');
+                // document.body.innerHTML = this.responseText;
+                // Old, with two HTTP requests
                 // (async () => {
-                // 	console.log("e");
                 // 	let x = await fetch("/chat");
-                // 	console.log(x);
                 // 	let y = await x.text();
                 // 	document.body.innerHTML = y;
                 // })();
@@ -35,4 +34,3 @@ function newUser() {
         };
     });
 }
-;

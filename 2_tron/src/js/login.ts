@@ -11,17 +11,17 @@ async function newUser() {
 		if (this.responseText === "exists") {
 			document.getElementById("username")!.innerHTML="User already exists";
 		} else {
-			document.body.innerHTML = this.responseText;
+			window.location.replace('/chat.html')
 
-			//Old, with two HTTP requests
+			// document.body.innerHTML = this.responseText;
+
+			// Old, with two HTTP requests
 			// (async () => {
-			// 	console.log("e");
 			// 	let x = await fetch("/chat");
-			// 	console.log(x);
 			// 	let y = await x.text();
 			// 	document.body.innerHTML = y;
 			// })();
 			//document.location = "/chat" <-- buscar info
 		}
 	}
-};
+}

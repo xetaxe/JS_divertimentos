@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>First chat</title>	
+		<title>First chat</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+		<!-- <script>var exports = {};</script> -->
+		<script src="/game.js" defer> </script>
+		<script type="module" src="/chat.js" defer> </script>	
 	</head>
 	<body>
-		<div id="chat">
-			<div id="chat messages">
-				aaaaaaaaaaaaaa
-			</div>
-			<form action="new_user" method="POST">
-				<input type="text" id="new_message" required />
-				<input type="submit" />
-			</form>
+		<div id="test"></div>
+		<button id="testbutton">Send user</button>
+		<div>
+			<canvas id="myCanvas"></canvas>
 		</div>
 	</body>
 </html>

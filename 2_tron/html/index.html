@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>First chat</title>
+		<title>4P Tron</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
 		<script src="/login.js" defer> </script>
+		<script type="module" src="/tron.js" defer> </script>	
 	</head>
 	<body>
-		<div id="username">
-			<div>
-				<input type="text" id="username_input" name="username" required />
-				<button onclick="newUser()">Send user</button>
+		<h1>4P Tron</h1>
+		<div id="login_menu">
+			<form id="login" action="/login" method="post">
+				<label for="username">Username: </label>
+				<input type="text" id="username" name="username" placeholder="User1234">
+				<button type="submit" id="login_button">Log In</button>
 			</form>
+			<div id="login_error"></div>
 		</div>
+
+		<div>
+			<canvas id="myCanvas"></canvas>
+		</div>
+		<!-- <button id="testbutton">Send user</button> -->
+		<div id="test"></div>
 	</body>
 </html>

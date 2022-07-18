@@ -1,27 +1,16 @@
-async function newUser() {
-	const newUser = {username: ""};
-	newUser.username = (document.getElementById("username_input") as HTMLInputElement).value;
+export async function newUser(username:string) {
+	const newUser = {"username": username};
 
 	const xhttp = new XMLHttpRequest();
-	xhttp.open("POST", "/new_user");
+	xhttp.open("POST", "/login");
 	xhttp.setRequestHeader("Content-Type", "application/json");
 	xhttp.send(JSON.stringify(newUser));
 
 	xhttp.onload = function() {
 		if (this.responseText === "exists") {
-			document.getElementById("username")!.innerHTML="User already exists";
+			 return "User already exists";
 		} else {
-			window.location.replace('/chat.html')
-
-			// document.body.innerHTML = this.responseText;
-
-			// Old, with two HTTP requests
-			// (async () => {
-			// 	let x = await fetch("/chat");
-			// 	let y = await x.text();
-			// 	document.body.innerHTML = y;
-			// })();
-			//document.location = "/chat" <-- buscar info
+			// window.location.replace('/chat.html')
 		}
 	}
 }
